@@ -1,0 +1,44 @@
+---
+title: "Assignment_2"
+output: html_document
+date: "2023-09-25"
+---
+
+```{r}
+library(readxl)
+Typical_Employee_Survey_Data <-read_excel("Typical_Employee_Survey_Data.xlsx",col_names = FALSE)
+colnames(Typical_Employee_Survey_Data)<-c("age","gender","job satisfaction","job char","exp_years","promotion","decision_making","budgetary_dec","proud_fb","another_job","relations ")
+sapply(Typical_Employee_Survey_Data,fivenum)
+boxplot(Typical_Employee_Survey_Data)
+Typical_Employee_Survey_Data$gender <- factor(Typical_Employee_Survey_Data$gender, labels = c("male","female"))
+Typical_Employee_Survey_Data$promotion <- factor(Typical_Employee_Survey_Data$promotion, labels = c("Very Likely","Likely","Not Sure","Unlikely","Very Unlikely"))
+Typical_Employee_Survey_Data$budgetary_dec <- factor(Typical_Employee_Survey_Data$budgetary_dec, labels = c("Yes","No"))
+Typical_Employee_Survey_Data$proud_fb <- factor(Typical_Employee_Survey_Data$proud_fb, labels = c("Very Proud","Somewhat Proud","Indifferent","Not At All Proud"))
+hist(Typical_Employee_Survey_Data$age)
+gender_count <- table(Typical_Employee_Survey_Data$gender)
+pie(gender_count,labels <- c("male","female"),col = c("blue","pink"),main='Frequency of Male vs Female')
+job_satifaction_count <- table(Typical_Employee_Survey_Data$`job satisfaction`)
+boxplot(job_satifaction_count, main = "Employee Satisfaction percentile ratio",ylab="Satisfaction Scale",col = c("green") )
+job_char_count <- table(Typical_Employee_Survey_Data$`job char`)
+barplot(job_char_count , main = "Employee Satisfaction percentile ratio",col = c("blue") )
+data <- rnorm(100)
+density_data <- density(Typical_Employee_Survey_Data$exp_years)
+plot(density_data, main = "Experience wise Density Plot", xlab = "Years of Experience", ylab = "Density")
+promotion_count <- table(Typical_Employee_Survey_Data$promotion)
+barplot(promotion_count  , main = "Employee Satisfaction percentile ratio",col = c("pink"), horiz = TRUE)
+decision_making <- table(Typical_Employee_Survey_Data$decision_making)
+barplot(decision_making   , main = "Decision Making ratio",col = c("blue"), horiz = FALSE)
+budgetary_dec_count <- table(Typical_Employee_Survey_Data$budgetary_dec)
+pie(budgetary_dec_count , labels = c("Yes","No"), col = c("green","red"), main = "Budget Decision pie Chart")
+proud_fb_count <- table(Typical_Employee_Survey_Data$proud_fb)
+pie(proud_fb_count  , labels = c("Very Proud","Somewhat Proud","Indifferent","Not At All Proud"), col = c("green","blue","yellow","red"), main = "Feedback of being proud ratio")
+proud_another_job <- table(Typical_Employee_Survey_Data$another_job)
+barplot(proud_another_job,main="payscale Comparison",col = c("green"))
+relations_job <- table(Typical_Employee_Survey_Data$`relations `)
+pie(relations_job, labels = c("Very Good","Good","Bad","Very Bad"), col = c("green","blue","yellow","red"), main = "Employee Relation ratio")
+plot(Typical_Employee_Survey_Data$age,Typical_Employee_Survey_Data$exp_years,main = "Age vs years of Experience Relation Scatterplot",xlab = "Age", ylab = "Years of Experience",col = "blue", pch = 16)
+plot(Typical_Employee_Survey_Data$`job satisfaction`,Typical_Employee_Survey_Data$`job char`,main = "Job Satisfaction vs Job Characteristics of Experience Relation Scatterplot",xlab = "Job Satisfaction", ylab = "Job Characteristics",col = "green", pch = 16)
+plot(Typical_Employee_Survey_Data$`job satisfaction`,Typical_Employee_Survey_Data$`relations `,main = "Job Satisfaction vs Job Relation Scatterplot",xlab = "Job Satisfaction", ylab = "Job Relation",col = "red", pch = 16)
+plot(Typical_Employee_Survey_Data$`relations `,Typical_Employee_Survey_Data$exp_years,main = "Relations with colleagues as per years of Experience Relation Scatterplot",xlab = "Job Relations", ylab = "Years of Experience",col = "blue", pch = 16)
+```
+
